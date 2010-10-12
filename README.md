@@ -56,4 +56,4 @@ on the `TemplateEngine` class to register named templates before rendering.
 
 * Support custom index/value variables on the `{{each}}` tag.
 
-* Whatever [gmeans](http://github.com/gmeans) asks me for
+* Whatever [garann](http://github.com/garann) asks me for
