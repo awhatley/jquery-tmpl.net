@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{53D00C3B-4C7B-4C98-AEDA-7AE57DF9FB7D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>jQueryTmpl</RootNamespace>
+    <AssemblyName>jQueryTmpl</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\jQueryTmpl.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\jQueryTmpl.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Parsing\EachTemplate.cs" />
+    <Compile Include="Parsing\ElseTemplate.cs" />
+    <Compile Include="Parsing\HtmlTemplate.cs" />
+    <Compile Include="Parsing\IfTemplate.cs" />
+    <Compile Include="Parsing\LiteralTemplate.cs" />
+    <Compile Include="Parsing\Parser.cs" />
+    <Compile Include="Parsing\PrintTemplate.cs" />
+    <Compile Include="Parsing\TagMismatchException.cs" />
+    <Compile Include="Parsing\Template.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\TemplateRenderingException.cs" />
+    <Compile Include="Tags\EachTagDescriptor.cs" />
+    <Compile Include="Tags\ElseTagDescriptor.cs" />
+    <Compile Include="Tags\EndEachTagDescriptor.cs" />
+    <Compile Include="Tags\EndIfTagDescriptor.cs" />
+    <Compile Include="Tags\HtmlTagDescriptor.cs" />
+    <Compile Include="Tags\IfTagDescriptor.cs" />
+    <Compile Include="Tags\ITagDescriptor.cs" />
+    <Compile Include="Tags\LiteralTagDescriptor.cs" />
+    <Compile Include="Tags\PrintTagDescriptor.cs" />
+    <Compile Include="TemplateEngine.cs" />
+    <Compile Include="Tokenization\Token.cs" />
+    <Compile Include="Tokenization\Tokenizer.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
