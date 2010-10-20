@@ -51,27 +51,21 @@ namespace jQueryTmpl.Parsing
 
         protected object GetDataValue(object item)
         {
-            var propertyName = GetDataProperty();
-            object o = item;
-            PropertyInfo property = null;
-            Type type = item.GetType();	
-            String[] parts = propertyName.Split(new char[]{'.'});
+            var propertyValue = item;
+            var expressionParts = GetDataProperty().Split('.');
 
-            foreach (String part in parts) {
-
-                if (property != null) {
-								    o = property.GetValue(o, null);
-                }
+            for(var i = 0; (i < expressionParts.Length) && (propertyValue != null); i++)
+            {
+                var propertyName = expressionParts[i];
+                var propertyInfo = propertyValue.GetType().GetProperty(propertyName);
                 
-                property = type.GetProperty(part);
-
-                if (property == null)
+                if (propertyInfo == null)
                     throw new TemplateRenderingException("The provided data object does not have a property '" + propertyName + "'.");
-							
-                type = property.PropertyType;
+                
+                propertyValue = propertyInfo.GetValue(propertyValue, null);
             }
 
-            return property.GetValue(o, null);
+            return propertyValue;
         }
 
         protected string Render(IEnumerable<Template> templates, object item)

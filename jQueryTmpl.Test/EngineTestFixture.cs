@@ -90,6 +90,25 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
+        public void PrintNestedPropertyValues()
+        {
+            const string template = @"<li>${foo.bar.baz} {{= foo.bar.bax}} ${foo.bac}</li>";
+            const string expected = @"<li>baz bax bac</li>";
+            var data = new { 
+                foo = new { 
+                    bar = new { 
+                        baz = "baz", 
+                        bax = "bax" 
+                    },
+                    
+                    bac = "bac",
+                } 
+            };
+
+            TestRender(template, expected, data); 
+        }
+
+        [Test]
         public void SimpleIfStatement()
         {
             const string template = @"leaderboard light{{if IsCurrentUser}} mine{{/if}}";
