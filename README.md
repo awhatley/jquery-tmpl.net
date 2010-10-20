@@ -26,7 +26,8 @@ Supported Tags
 
 * **`${property}`**: Both the shorthand and `{{= }}` are supported. 
 Will print out the value of the indicated property on the provided
-data object. Note that expression/function evaluation is not supported.
+data object. Nested property resolution is supported, thanks to shellscape!
+Note that expression/function evaluation is not supported.
 
 * **`{{= property}}`**: Handled identically to `${}`.
 
