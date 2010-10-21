@@ -44,15 +44,10 @@ namespace jQueryTmpl.Parsing
             return Render(Children, item);
         }
 
-        protected string GetDataProperty()
-        {
-            return Descriptor.Pattern.Match(Value).Groups["data"].Value;
-        }
-
         protected object GetDataValue(object item)
         {
             var propertyValue = item;
-            var expressionParts = GetDataProperty().Split('.');
+            var expressionParts = Descriptor.Pattern.Match(Value).Groups["data"].Value.Split('.');
 
             for(var i = 0; (i < expressionParts.Length) && (propertyValue != null); i++)
             {
@@ -60,12 +55,20 @@ namespace jQueryTmpl.Parsing
                 var propertyInfo = propertyValue.GetType().GetProperty(propertyName);
                 
                 if (propertyInfo == null)
-                    throw new TemplateRenderingException("The provided data object does not have a property '" + propertyName + "'.");
+                    return null;
                 
                 propertyValue = propertyInfo.GetValue(propertyValue, null);
             }
 
             return propertyValue;
+        }
+
+        protected bool IsTruthy(object value)
+        {
+            return value != null 
+                && !value.Equals(false) 
+                && !value.Equals(0) 
+                && !value.Equals(String.Empty);
         }
 
         protected string Render(IEnumerable<Template> templates, object item)

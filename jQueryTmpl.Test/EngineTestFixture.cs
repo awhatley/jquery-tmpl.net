@@ -174,6 +174,34 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
+        public void EvaluateTruthiness()
+        {
+            const string template = @"leaderboard light{{if IsCurrentUser}} mine{{/if}}";
+            const string expectedTrue = @"leaderboard light mine";
+            const string expectedFalse = @"leaderboard light";
+
+            var booleanTrue = new { IsCurrentUser = true };
+            var numericTrue = new { IsCurrentUser = 1 };
+            var stringTrue = new { IsCurrentUser = "false" }; // tricksy
+            var objectTrue = new { IsCurrentUser = new object() };
+
+            var booleanFalse = new { IsCurrentUser = false };
+            var numericFalse = new { IsCurrentUser = 0 };
+            var stringFalse = new { IsCurrentUser = String.Empty };
+            var objectFalse = new { IsCurrentUser = (object)null };
+
+            TestRender(template, expectedTrue, booleanTrue);
+            TestRender(template, expectedTrue, numericTrue);
+            TestRender(template, expectedTrue, stringTrue);
+            TestRender(template, expectedTrue, objectTrue);
+
+            TestRender(template, expectedFalse, booleanFalse);
+            TestRender(template, expectedFalse, numericFalse);
+            TestRender(template, expectedFalse, stringFalse);
+            TestRender(template, expectedFalse, objectFalse);
+        }
+
+        [Test]
         public void EachStatement()
         {
             const string template = @"<ul>{{each people}}<li>${firstName} ${lastName}</li>{{/each}}</ul>";

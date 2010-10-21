@@ -11,9 +11,8 @@ namespace jQueryTmpl.Parsing
 
         public override string Render(object item)
         {
-            var propertyName = GetDataProperty();
-            var condition = propertyName.Length > 0 ? Boolean.Parse(Convert.ToString(GetDataValue(item))) : true;
-
+            var value = GetDataValue(item);
+            var condition = IsTruthy(value) || value == null;
             var trueChildren = Children.TakeWhile(c => !(c is ElseTemplate));
             var elseTemplate = Children.FirstOrDefault(c => c is ElseTemplate);
 

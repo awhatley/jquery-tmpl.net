@@ -38,12 +38,11 @@ custom index or value variables. Properties of the objects in the array
 can be evaluated within the block using any of the tags, however.
 
 * **`{{if property}}...{{/if}`**: Renders the content of the tag if the 
-property value on the provided data object evaluates to `true`. Will throw 
-an exception if the property cannot be parsed into a boolean.
+property value on the provided data object evaluates to `true`. This is
+javascript-style evaluation so 0, null, empty string are all `false`.
 
 * **`{{else property}}`**: Used within the `{{if}}` tag to evaluate else
-conditions. The property value is optional, but if present must be parseable
-into a boolean.
+conditions. The property value is optional.
 
 * **`{{html property}}`**: Renders the value of the property without HTML
 encoding. Otherwise identical to `${}`.
