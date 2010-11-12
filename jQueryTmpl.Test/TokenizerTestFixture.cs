@@ -11,7 +11,7 @@ namespace jQueryTmpl.Test
     public class TokenizerTestFixture
     {
         [Test]
-        public void ParseNoTokenTemplate()
+        public void NoToken()
         {
             const string templateString = @"<ul><li>Item $1</li><li>{Item 2</li><li>{}{}{}</li></ul>";
             var tokenizer = new Tokenizer();
@@ -24,7 +24,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void ParseFalseTokenTemplate()
+        public void FalseToken()
         {
             const string templateString = @"<ul><li>Item $1</li><li>${Item 2</li><li>blah</li></ul>";
             var tokenizer = new Tokenizer();
@@ -37,7 +37,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void ParseSingleToken()
+        public void EqualToken()
         {
             const string templateString = @"<li>${firstName}</li>";
             var tokenizer = new Tokenizer();
@@ -59,7 +59,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void ParseLongPrintToken()
+        public void LongEqualToken()
         {
             const string templateString = @"<li><b>{{= Name}}</b> was released in {{= ReleaseYear}}.</li>";
             var tokenizer = new Tokenizer();
@@ -89,7 +89,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void ParseMultipleTokens()
+        public void MultipleTokens()
         {
             const string templateString = @"<li>${firstName} ${lastName} ${suffix}</li>";
             var tokenizer = new Tokenizer();
@@ -127,7 +127,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void ParseSimpleIf()
+        public void SimpleIfToken()
         {
             const string templateString = @"<li class='something{{if Blah}} blah{{/if}}'>Test</li>";
             var tokenizer = new Tokenizer();
@@ -157,7 +157,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void ParseNestedIf()
+        public void NestedIfToken()
         {
             const string templateString = @"<li class='something{{if Blah}} blah{{if Foo}} foo{{/if}} bar{{/if}}'>Test</li>";
             var tokenizer = new Tokenizer();
@@ -203,7 +203,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void ParseNestedIfElse()
+        public void NestedIfElseToken()
         {
             const string templateString = @"<li class='something{{if Blah}} blah{{else Foo}} foo{{if Foobar}} foobar{{/if}}{{else}} bar{{/if}}'>Test</li>";
             var tokenizer = new Tokenizer();
@@ -261,7 +261,7 @@ namespace jQueryTmpl.Test
         }
     
         [Test]
-        public void ParseIfElseEach()
+        public void IfElseEachTokens()
         {
             const string templateString = @"{{each Thing}}<li class='something{{if Blah}} blah{{else Foo}} foo{{each Foobar}} <span>${value}</span>{{/each}}{{/if}}{{else}} bar{{/if}}'>Test</li>{{/each}}";
             var tokenizer = new Tokenizer();
@@ -339,7 +339,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void ParseHtml()
+        public void HtmlToken()
         {
             const string templateString = @"<h4>${Name}</h4><p>{{html Synopsis}}</p>";
             var tokenizer = new Tokenizer();
@@ -369,7 +369,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void ParseEachWithValueToken()
+        public void EachWithValueToken()
         {
             const string templateString = @"{{each blah}}<li>something ${$value} blah {{/each}}";
             var tokenizer = new Tokenizer();
