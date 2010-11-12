@@ -13,7 +13,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseNoTokenTemplate()
         {
-            var templateString = @"<ul><li>Item $1</li><li>{Item 2</li><li>{}{}{}</li></ul>";
+            const string templateString = @"<ul><li>Item $1</li><li>{Item 2</li><li>{}{}{}</li></ul>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 
@@ -26,7 +26,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseFalseTokenTemplate()
         {
-            var templateString = @"<ul><li>Item $1</li><li>${Item 2</li><li>blah</li></ul>";
+            const string templateString = @"<ul><li>Item $1</li><li>${Item 2</li><li>blah</li></ul>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 
@@ -39,7 +39,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseSingleToken()
         {
-            var templateString = @"<li>${firstName}</li>";
+            const string templateString = @"<li>${firstName}</li>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 
@@ -61,7 +61,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseLongPrintToken()
         {
-            var templateString = @"<li><b>{{= Name}}</b> was released in {{= ReleaseYear}}.</li>";
+            const string templateString = @"<li><b>{{= Name}}</b> was released in {{= ReleaseYear}}.</li>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 
@@ -91,7 +91,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseMultipleTokens()
         {
-            var templateString = @"<li>${firstName} ${lastName} ${suffix}</li>";
+            const string templateString = @"<li>${firstName} ${lastName} ${suffix}</li>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 
@@ -129,7 +129,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseSimpleIf()
         {
-            var templateString = @"<li class='something{{if Blah}} blah{{/if}}'>Test</li>";
+            const string templateString = @"<li class='something{{if Blah}} blah{{/if}}'>Test</li>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 
@@ -159,7 +159,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseNestedIf()
         {
-            var templateString = @"<li class='something{{if Blah}} blah{{if Foo}} foo{{/if}} bar{{/if}}'>Test</li>";
+            const string templateString = @"<li class='something{{if Blah}} blah{{if Foo}} foo{{/if}} bar{{/if}}'>Test</li>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 
@@ -205,7 +205,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseNestedIfElse()
         {
-            var templateString = @"<li class='something{{if Blah}} blah{{else Foo}} foo{{if Foobar}} foobar{{/if}}{{else}} bar{{/if}}'>Test</li>";
+            const string templateString = @"<li class='something{{if Blah}} blah{{else Foo}} foo{{if Foobar}} foobar{{/if}}{{else}} bar{{/if}}'>Test</li>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 
@@ -263,7 +263,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseIfElseEach()
         {
-            var templateString = @"{{each Thing}}<li class='something{{if Blah}} blah{{else Foo}} foo{{each Foobar}} <span>${value}</span>{{/each}}{{/if}}{{else}} bar{{/if}}'>Test</li>{{/each}}";
+            const string templateString = @"{{each Thing}}<li class='something{{if Blah}} blah{{else Foo}} foo{{each Foobar}} <span>${value}</span>{{/each}}{{/if}}{{else}} bar{{/if}}'>Test</li>{{/each}}";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
      
@@ -341,7 +341,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseHtml()
         {
-            var templateString = @"<h4>${Name}</h4><p>{{html Synopsis}}</p>";
+            const string templateString = @"<h4>${Name}</h4><p>{{html Synopsis}}</p>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 
