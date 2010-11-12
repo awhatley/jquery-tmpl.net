@@ -45,7 +45,7 @@
     <Compile Include="Parsing\IfTemplate.cs" />
     <Compile Include="Parsing\LiteralTemplate.cs" />
     <Compile Include="Parsing\Parser.cs" />
-    <Compile Include="Parsing\PrintTemplate.cs" />
+    <Compile Include="Parsing\EqualTemplate.cs" />
     <Compile Include="Parsing\TagMismatchException.cs" />
     <Compile Include="Parsing\Template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="Tags\IfTagDescriptor.cs" />
     <Compile Include="Tags\ITagDescriptor.cs" />
     <Compile Include="Tags\LiteralTagDescriptor.cs" />
-    <Compile Include="Tags\PrintTagDescriptor.cs" />
+    <Compile Include="Tags\EqualTagDescriptor.cs" />
     <Compile Include="TemplateEngine.cs" />
     <Compile Include="Tokenization\Token.cs" />
     <Compile Include="Tokenization\Tokenizer.cs" />

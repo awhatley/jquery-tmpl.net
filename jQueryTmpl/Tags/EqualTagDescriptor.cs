@@ -5,7 +5,7 @@ using jQueryTmpl.Tokenization;
 
 namespace jQueryTmpl.Tags
 {
-    public class PrintTagDescriptor : ITagDescriptor
+    public class EqualTagDescriptor : ITagDescriptor
     {
         public Regex Pattern
         {
@@ -29,7 +29,7 @@ namespace jQueryTmpl.Tags
 
         public Template CreateTemplate(Token token)
         {
-            return new PrintTemplate(token);
+            return new EqualTemplate(token);
         }
 
         public bool IsFinalCloseFor(ITagDescriptor descriptor)

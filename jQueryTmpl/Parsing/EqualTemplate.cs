@@ -5,9 +5,9 @@ using jQueryTmpl.Tokenization;
 
 namespace jQueryTmpl.Parsing
 {
-    public class PrintTemplate : Template
+    public class EqualTemplate : Template
     {
-        public PrintTemplate(Token token) : base(token) { }
+        public EqualTemplate(Token token) : base(token) { }
 
         public override string Render(object item)
         {

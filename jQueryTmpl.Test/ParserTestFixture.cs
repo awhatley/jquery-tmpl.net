@@ -31,7 +31,7 @@ namespace jQueryTmpl.Test
         {
             var tokens = new List<Token> {
                 new Token(@"<li>", new LiteralTagDescriptor()),
-                new Token(@"${firstName}", new PrintTagDescriptor()),
+                new Token(@"${firstName}", new EqualTagDescriptor()),
                 new Token(@"</li>", new LiteralTagDescriptor())
             };
             
@@ -41,7 +41,7 @@ namespace jQueryTmpl.Test
             Assert.That(template.Children.Count(), Is.EqualTo(3));
             Assert.That(template.Children.ElementAt(0), Is.TypeOf<LiteralTemplate>());
             Assert.That(template.Children.ElementAt(0).Value, Is.EqualTo(@"<li>"));
-            Assert.That(template.Children.ElementAt(1), Is.TypeOf<PrintTemplate>());
+            Assert.That(template.Children.ElementAt(1), Is.TypeOf<EqualTemplate>());
             Assert.That(template.Children.ElementAt(1).Value, Is.EqualTo(@"${firstName}"));
             Assert.That(template.Children.ElementAt(2), Is.TypeOf<LiteralTemplate>());
             Assert.That(template.Children.ElementAt(2).Value, Is.EqualTo(@"</li>"));
@@ -52,11 +52,11 @@ namespace jQueryTmpl.Test
         {
             var tokens = new List<Token> {
                 new Token(@"<li>", new LiteralTagDescriptor()),
-                new Token(@"${firstName}", new PrintTagDescriptor()),
+                new Token(@"${firstName}", new EqualTagDescriptor()),
                 new Token(@" ", new LiteralTagDescriptor()),
-                new Token(@"${lastName}", new PrintTagDescriptor()),
+                new Token(@"${lastName}", new EqualTagDescriptor()),
                 new Token(@" ", new LiteralTagDescriptor()),
-                new Token(@"${suffix}", new PrintTagDescriptor()),
+                new Token(@"${suffix}", new EqualTagDescriptor()),
                 new Token(@"</li>", new LiteralTagDescriptor())
             };
             
@@ -66,15 +66,15 @@ namespace jQueryTmpl.Test
             Assert.That(template.Children.Count(), Is.EqualTo(7));
             Assert.That(template.Children.ElementAt(0), Is.TypeOf<LiteralTemplate>());
             Assert.That(template.Children.ElementAt(0).Value, Is.EqualTo(@"<li>"));
-            Assert.That(template.Children.ElementAt(1), Is.TypeOf<PrintTemplate>());
+            Assert.That(template.Children.ElementAt(1), Is.TypeOf<EqualTemplate>());
             Assert.That(template.Children.ElementAt(1).Value, Is.EqualTo(@"${firstName}"));
             Assert.That(template.Children.ElementAt(2), Is.TypeOf<LiteralTemplate>());
             Assert.That(template.Children.ElementAt(2).Value, Is.EqualTo(@" "));
-            Assert.That(template.Children.ElementAt(3), Is.TypeOf<PrintTemplate>());
+            Assert.That(template.Children.ElementAt(3), Is.TypeOf<EqualTemplate>());
             Assert.That(template.Children.ElementAt(3).Value, Is.EqualTo(@"${lastName}"));
             Assert.That(template.Children.ElementAt(4), Is.TypeOf<LiteralTemplate>());
             Assert.That(template.Children.ElementAt(4).Value, Is.EqualTo(@" "));
-            Assert.That(template.Children.ElementAt(5), Is.TypeOf<PrintTemplate>());
+            Assert.That(template.Children.ElementAt(5), Is.TypeOf<EqualTemplate>());
             Assert.That(template.Children.ElementAt(5).Value, Is.EqualTo(@"${suffix}"));
             Assert.That(template.Children.ElementAt(6), Is.TypeOf<LiteralTemplate>());
             Assert.That(template.Children.ElementAt(6).Value, Is.EqualTo(@"</li>"));

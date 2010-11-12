@@ -51,7 +51,7 @@ namespace jQueryTmpl.Test
 
             Assert.That(tokens.ElementAt(1), Is.Not.Null);
             Assert.That(tokens.ElementAt(1).Value, Is.EqualTo(@"${firstName}"));
-            Assert.That(tokens.ElementAt(1).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+            Assert.That(tokens.ElementAt(1).Descriptor, Is.TypeOf<EqualTagDescriptor>());
 
             Assert.That(tokens.ElementAt(2), Is.Not.Null);
             Assert.That(tokens.ElementAt(2).Value, Is.EqualTo(@"</li>"));
@@ -73,7 +73,7 @@ namespace jQueryTmpl.Test
 
             Assert.That(tokens.ElementAt(1), Is.Not.Null);
             Assert.That(tokens.ElementAt(1).Value, Is.EqualTo(@"{{= Name}}"));
-            Assert.That(tokens.ElementAt(1).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+            Assert.That(tokens.ElementAt(1).Descriptor, Is.TypeOf<EqualTagDescriptor>());
 
             Assert.That(tokens.ElementAt(2), Is.Not.Null);
             Assert.That(tokens.ElementAt(2).Value, Is.EqualTo(@"</b> was released in "));
@@ -81,7 +81,7 @@ namespace jQueryTmpl.Test
 
             Assert.That(tokens.ElementAt(3), Is.Not.Null);
             Assert.That(tokens.ElementAt(3).Value, Is.EqualTo(@"{{= ReleaseYear}}"));
-            Assert.That(tokens.ElementAt(3).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+            Assert.That(tokens.ElementAt(3).Descriptor, Is.TypeOf<EqualTagDescriptor>());
 
             Assert.That(tokens.ElementAt(4), Is.Not.Null);
             Assert.That(tokens.ElementAt(4).Value, Is.EqualTo(@".</li>"));
@@ -103,7 +103,7 @@ namespace jQueryTmpl.Test
 
             Assert.That(tokens.ElementAt(1), Is.Not.Null);
             Assert.That(tokens.ElementAt(1).Value, Is.EqualTo(@"${firstName}"));
-            Assert.That(tokens.ElementAt(1).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+            Assert.That(tokens.ElementAt(1).Descriptor, Is.TypeOf<EqualTagDescriptor>());
 
             Assert.That(tokens.ElementAt(2), Is.Not.Null);
             Assert.That(tokens.ElementAt(2).Value, Is.EqualTo(@" "));
@@ -111,7 +111,7 @@ namespace jQueryTmpl.Test
 
             Assert.That(tokens.ElementAt(3), Is.Not.Null);
             Assert.That(tokens.ElementAt(3).Value, Is.EqualTo(@"${lastName}"));
-            Assert.That(tokens.ElementAt(3).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+            Assert.That(tokens.ElementAt(3).Descriptor, Is.TypeOf<EqualTagDescriptor>());
 
             Assert.That(tokens.ElementAt(4), Is.Not.Null);
             Assert.That(tokens.ElementAt(4).Value, Is.EqualTo(@" "));
@@ -119,7 +119,7 @@ namespace jQueryTmpl.Test
 
             Assert.That(tokens.ElementAt(5), Is.Not.Null);
             Assert.That(tokens.ElementAt(5).Value, Is.EqualTo(@"${suffix}"));
-            Assert.That(tokens.ElementAt(5).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+            Assert.That(tokens.ElementAt(5).Descriptor, Is.TypeOf<EqualTagDescriptor>());
 
             Assert.That(tokens.ElementAt(6), Is.Not.Null);
             Assert.That(tokens.ElementAt(6).Value, Is.EqualTo(@"</li>"));
@@ -303,7 +303,7 @@ namespace jQueryTmpl.Test
 
             Assert.That(tokens.ElementAt(8), Is.Not.Null);
             Assert.That(tokens.ElementAt(8).Value, Is.EqualTo(@"${value}"));
-            Assert.That(tokens.ElementAt(8).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+            Assert.That(tokens.ElementAt(8).Descriptor, Is.TypeOf<EqualTagDescriptor>());
 
             Assert.That(tokens.ElementAt(9), Is.Not.Null);
             Assert.That(tokens.ElementAt(9).Value, Is.EqualTo(@"</span>"));
@@ -353,7 +353,7 @@ namespace jQueryTmpl.Test
 
             Assert.That(tokens.ElementAt(1), Is.Not.Null);
             Assert.That(tokens.ElementAt(1).Value, Is.EqualTo(@"${Name}"));
-            Assert.That(tokens.ElementAt(1).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+            Assert.That(tokens.ElementAt(1).Descriptor, Is.TypeOf<EqualTagDescriptor>());
 
             Assert.That(tokens.ElementAt(2), Is.Not.Null);
             Assert.That(tokens.ElementAt(2).Value, Is.EqualTo(@"</h4><p>"));
@@ -387,7 +387,7 @@ namespace jQueryTmpl.Test
 
             Assert.That(tokens.ElementAt(2), Is.Not.Null);
             Assert.That(tokens.ElementAt(2).Value, Is.EqualTo(@"${$value}"));
-            Assert.That(tokens.ElementAt(2).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+            Assert.That(tokens.ElementAt(2).Descriptor, Is.TypeOf<EqualTagDescriptor>());
 
             Assert.That(tokens.ElementAt(3), Is.Not.Null);
             Assert.That(tokens.ElementAt(3).Value, Is.EqualTo(@" blah "));

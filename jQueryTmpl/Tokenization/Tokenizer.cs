@@ -9,7 +9,7 @@ namespace jQueryTmpl.Tokenization
     public class Tokenizer
     {
         private static readonly IEnumerable<ITagDescriptor> SupportedTags = new List<ITagDescriptor> {
-            new PrintTagDescriptor(), 
+            new EqualTagDescriptor(), 
             new IfTagDescriptor(), 
             new ElseTagDescriptor(),
             new EndIfTagDescriptor(),

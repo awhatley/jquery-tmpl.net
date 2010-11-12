@@ -76,7 +76,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void PrintHtmlEncodesValues()
+        public void EqualHtmlEncodesValues()
         {
             const string template = @"<li>${firstName} ${lastName}</li>";
             const string expected = @"<li>&lt;b&gt;John&lt;/b&gt; Smith</li><li>&lt;i&gt;Dave&lt;/i&gt; Jones</li><li>&lt;u&gt;Paul&lt;/u&gt; Davis</li>";
@@ -90,7 +90,7 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
-        public void PrintNestedPropertyValues()
+        public void EqualNestedPropertyValues()
         {
             const string template = @"<li>${foo.bar.baz} {{= foo.bar.bax}} ${foo.bac}</li>";
             const string expected = @"<li>baz bax bac</li>";
