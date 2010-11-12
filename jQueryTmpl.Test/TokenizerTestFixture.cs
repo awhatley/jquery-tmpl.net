@@ -26,7 +26,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void ParseFalseTokenTemplate()
         {
-            var templateString = @"<ul><li>Item $1</li><li>${Item 2</li><li>{}{}{}</li></ul>";
+            var templateString = @"<ul><li>Item $1</li><li>${Item 2</li><li>blah</li></ul>";
             var tokenizer = new Tokenizer();
             var tokens = tokenizer.Tokenize(templateString);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 using jQueryTmpl.Rendering;
 using jQueryTmpl.Tags;
@@ -51,13 +52,18 @@ namespace jQueryTmpl.Parsing
 
             for(var i = 0; (i < expressionParts.Length) && (propertyValue != null); i++)
             {
-                var propertyName = expressionParts[i];
-                var propertyInfo = propertyValue.GetType().GetProperty(propertyName);
-                
-                if (propertyInfo == null)
+                var propertyParts = expressionParts[i].Split('[', ']');
+                var propertyName = propertyParts[0].Trim();
+                var propertyInfo = propertyValue.GetType().GetProperty(propertyName, 
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
+
+                if(propertyInfo == null)
                     return null;
-                
+
                 propertyValue = propertyInfo.GetValue(propertyValue, null);
+
+                if(propertyValue is Array && propertyParts.Length > 1)
+                    propertyValue = ((Array)propertyValue).GetValue(Int32.Parse(propertyParts[1]));
             }
 
             return propertyValue;
@@ -79,6 +85,11 @@ namespace jQueryTmpl.Parsing
         protected string Render(IEnumerable<Template> templates, IEnumerable<object> items)
         {
             return String.Join(String.Empty, items.Select(item => Render(templates, item)));
+        }
+
+        public override string ToString()
+        {
+            return Value;
         }
     }
 }

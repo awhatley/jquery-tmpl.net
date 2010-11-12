@@ -38,5 +38,10 @@ namespace jQueryTmpl.Tokenization
         {
             return Descriptor.IsFinalCloseFor(template.Descriptor);
         }
+
+        public override string ToString()
+        {
+            return Value;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace jQueryTmpl.Tags
     {
         public Regex Pattern
         {
-            get { return new Regex(@"\{\{each\s+(?<data>\w+)\}\}"); }
+            get { return new Regex(@"\{\{each\s+(?<data>[^}]+)\}\}"); }
         }
 
         public bool IsStartTag

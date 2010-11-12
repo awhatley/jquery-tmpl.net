@@ -236,6 +236,38 @@ namespace jQueryTmpl.Test
             TestRender(template, expected, data); 
         }
 
+        [Test]
+        public void ArrayIndexer()
+        {
+            const string template = @"<li>${Users[0].FirstName} ${Users[0].LastName}</li>";
+            const string expected = @"<li>John Smith</li>";
+            var data = new { 
+                Users = new[] { 
+                    new { FirstName = "John", LastName = "Smith" },
+                    new { FirstName = "Steve", LastName = "Smith" },
+                    new { FirstName = "John", LastName = "Jones" },
+                }
+            };
+
+            TestRender(template, expected, data); 
+        }
+
+        [Test]
+        public void LengthProperty()
+        {
+            const string template = @"<li>{{if Users.length}} ${Users.length} {{/if}}</li>";
+            const string expected = @"<li> 3 </li>";
+            var data = new { 
+                Users = new[] { 
+                    new { FirstName = "John", LastName = "Smith" },
+                    new { FirstName = "Steve", LastName = "Smith" },
+                    new { FirstName = "John", LastName = "Jones" },
+                }
+            };
+
+            TestRender(template, expected, data);
+        }
+
         private void TestRender(string template, string expected, object data)
         {
             var engine = new TemplateEngine();
