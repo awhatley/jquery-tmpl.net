@@ -367,5 +367,35 @@ namespace jQueryTmpl.Test
             Assert.That(tokens.ElementAt(4).Value, Is.EqualTo(@"</p>"));
             Assert.That(tokens.ElementAt(4).Descriptor, Is.TypeOf<LiteralTagDescriptor>());
         }
+
+        [Test]
+        public void ParseEachWithValueToken()
+        {
+            const string templateString = @"{{each blah}}<li>something ${$value} blah {{/each}}";
+            var tokenizer = new Tokenizer();
+            var tokens = tokenizer.Tokenize(templateString);
+        
+            Assert.That(tokens.Count(), Is.EqualTo(5));
+        
+            Assert.That(tokens.ElementAt(0), Is.Not.Null);
+            Assert.That(tokens.ElementAt(0).Value, Is.EqualTo(@"{{each blah}}"));
+            Assert.That(tokens.ElementAt(0).Descriptor, Is.TypeOf<EachTagDescriptor>());
+
+            Assert.That(tokens.ElementAt(1), Is.Not.Null);
+            Assert.That(tokens.ElementAt(1).Value, Is.EqualTo(@"<li>something "));
+            Assert.That(tokens.ElementAt(1).Descriptor, Is.TypeOf<LiteralTagDescriptor>());
+
+            Assert.That(tokens.ElementAt(2), Is.Not.Null);
+            Assert.That(tokens.ElementAt(2).Value, Is.EqualTo(@"${$value}"));
+            Assert.That(tokens.ElementAt(2).Descriptor, Is.TypeOf<PrintTagDescriptor>());
+
+            Assert.That(tokens.ElementAt(3), Is.Not.Null);
+            Assert.That(tokens.ElementAt(3).Value, Is.EqualTo(@" blah "));
+            Assert.That(tokens.ElementAt(3).Descriptor, Is.TypeOf<LiteralTagDescriptor>());
+
+            Assert.That(tokens.ElementAt(4), Is.Not.Null);
+            Assert.That(tokens.ElementAt(4).Value, Is.EqualTo(@"{{/each}}"));
+            Assert.That(tokens.ElementAt(4).Descriptor, Is.TypeOf<EndEachTagDescriptor>());
+        }
     }
 }
