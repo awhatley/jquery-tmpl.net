@@ -37,32 +37,29 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parsing\EachTemplate.cs" />
-    <Compile Include="Parsing\ElseTemplate.cs" />
-    <Compile Include="Parsing\HtmlTemplate.cs" />
-    <Compile Include="Parsing\IfTemplate.cs" />
-    <Compile Include="Parsing\LiteralTemplate.cs" />
-    <Compile Include="Parsing\Parser.cs" />
-    <Compile Include="Parsing\EqualTemplate.cs" />
-    <Compile Include="Parsing\TagMismatchException.cs" />
-    <Compile Include="Parsing\Template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rendering\Renderer.cs" />
-    <Compile Include="Rendering\TemplateRenderingException.cs" />
-    <Compile Include="Tags\EachTagDescriptor.cs" />
-    <Compile Include="Tags\ElseTagDescriptor.cs" />
-    <Compile Include="Tags\EndEachTagDescriptor.cs" />
-    <Compile Include="Tags\EndIfTagDescriptor.cs" />
-    <Compile Include="Tags\HtmlTagDescriptor.cs" />
-    <Compile Include="Tags\IfTagDescriptor.cs" />
-    <Compile Include="Tags\ITagDescriptor.cs" />
-    <Compile Include="Tags\LiteralTagDescriptor.cs" />
-    <Compile Include="Tags\EqualTagDescriptor.cs" />
+    <Compile Include="TemplateCache.cs" />
+    <Compile Include="TemplateCompiler.cs" />
     <Compile Include="TemplateEngine.cs" />
-    <Compile Include="Tokenization\Token.cs" />
-    <Compile Include="Tokenization\Tokenizer.cs" />
+    <Compile Include="Templates\EachTemplate.cs" />
+    <Compile Include="Templates\ElseTemplate.cs" />
+    <Compile Include="Templates\EvalTemplate.cs" />
+    <Compile Include="Templates\EvaluatedExpression.cs" />
+    <Compile Include="Templates\ExpressionEvaluator.cs" />
+    <Compile Include="Templates\Expression.cs" />
+    <Compile Include="Templates\ExpressionParser.cs" />
+    <Compile Include="Templates\HtmlTemplate.cs" />
+    <Compile Include="Templates\IfTemplate.cs" />
+    <Compile Include="Templates\LiteralTemplate.cs" />
+    <Compile Include="Templates\NestedTemplate.cs" />
+    <Compile Include="Templates\Parameter.cs" />
+    <Compile Include="Templates\Template.cs" />
+    <Compile Include="Templates\TemplateItem.cs" />
+    <Compile Include="Templates\WrapTemplate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

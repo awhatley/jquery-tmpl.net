@@ -8,10 +8,10 @@ namespace jQueryTmpl.Test
     public class EngineTestFixture
     {
         [Test]
-        public void RenderNullDataToEmptyString()
+        public void RenderNullData()
         {
             const string template = @"<li>${firstName}</li>";
-            const string expected = @"";
+            const string expected = @"<li></li>";
             object data = null;
 
             TestRender(template, expected, data);

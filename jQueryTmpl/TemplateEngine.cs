@@ -1,23 +1,37 @@
 using System;
 
-using jQueryTmpl.Parsing;
-using jQueryTmpl.Rendering;
-using jQueryTmpl.Tokenization;
+using jQueryTmpl.Templates;
 
 namespace jQueryTmpl
 {
     public class TemplateEngine
     {
-        public string Render(string template, object data)
+        private static readonly TemplateCache _cache = new TemplateCache();
+
+        public void Store(string name, string template)
         {
-            if(template == null || data == null)
+            _cache.Store(name ?? template, Compile(template));
+        }
+        
+        public string Render(string template, object data = null, object options = null)
+        {
+            if(template == null)
                 return String.Empty;
 
-            var tokens = new Tokenizer().Tokenize(template);
-            var tmpl = new Parser().Parse(tokens);
-            var result = new Renderer().Render(tmpl, data);
+            var tmpl = _cache.Retrieve(template, () => Compile(template));
 
-            return result;
+            if(tmpl == null)
+                return String.Empty;
+
+            return tmpl.Render(new TemplateItem {
+                Data = data, 
+                Options = options
+            });
+        }
+
+        private static Template Compile(string template)
+        {
+            return new TemplateCompiler(_cache).Compile(template);
         }
     }
 }

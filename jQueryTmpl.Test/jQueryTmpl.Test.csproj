@@ -39,9 +39,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EngineTestFixture.cs" />
-    <Compile Include="ParserTestFixture.cs" />
+    <Compile Include="ExpressionParserTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TokenizerTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\jQueryTmpl\jQueryTmpl.csproj">
