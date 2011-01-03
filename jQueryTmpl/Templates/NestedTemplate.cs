@@ -10,8 +10,8 @@
         {
             return Template.Render(new TemplateItem {
                 Parent = item,
-                Data = Data,
-                Options = Options,
+                Data = new ExpressionEvaluator(item).Evaluate(Data).Value,
+                Options = new ExpressionEvaluator(item).Evaluate(Options).Value,
             });
         }
     }

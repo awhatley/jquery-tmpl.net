@@ -268,10 +268,47 @@ namespace jQueryTmpl.Test
             TestRender(template, expected, data);
         }
 
-        private void TestRender(string template, string expected, object data)
+        [Test]
+        public void ArbitraryFunctionEvaluation()
+        {
+            const string template = @"<li>{{= $item.func('abc')}}</li>";
+            const string expected = @"<li>abccba</li>";
+
+            var data = new { };
+            var options = new {
+                func = (Func<string, string>)(x => x + x[2] + x[1] + x[0]),
+            };
+
+            TestRender(template, expected, data, options);
+        }
+
+        [Test]
+        public void NestedTemplates()
+        {
+            const string movieTemplate = @"{{tmpl ""#titleTemplate""}}<tr class=""detail""><td>Director: ${Director}</td></tr>";
+            const string titleTemplate = @"<tr class=""title""><td>${Name}</td></tr>";
+            const string expected = @"<tr class=""title""><td>Meet Joe Black</td></tr><tr class=""detail""><td>Director: Martin Brest</td></tr><tr class=""title""><td>The Mighty</td></tr><tr class=""detail""><td>Director: Peter Chelsom</td></tr><tr class=""title""><td>City Hunter</td></tr><tr class=""detail""><td>Director: Wong Jing</td></tr>";
+
+            var engine = new TemplateEngine();
+            engine.Store("#titleTemplate", titleTemplate);
+            engine.Store("#movieTemplate", movieTemplate);
+
+            var movies = new[] {
+                new { Name = "Meet Joe Black", Director = "Martin Brest" },
+                new { Name = "The Mighty", Director = "Peter Chelsom" },
+                new { Name = "City Hunter", Director = "Wong Jing" },
+            };
+            
+            var result = engine.Render("#movieTemplate", movies);
+
+            Assert.That(result, Is.EqualTo(expected));
+            Console.WriteLine(result);
+        }
+
+        private void TestRender(string template, string expected, object data, object options = null)
         {
             var engine = new TemplateEngine();
-            var result = engine.Render(template, data);
+            var result = engine.Render(template, data, options);
 
             Assert.That(result, Is.EqualTo(expected));
             Console.WriteLine(result);

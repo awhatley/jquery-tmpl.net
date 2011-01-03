@@ -88,9 +88,9 @@ namespace jQueryTmpl
         private Template BuildTmpl(Token current, Queue<Token> remaining)
         {
             return new NestedTemplate {
-                Data = new ExpressionParser().Parse(current.Parameters[0]),
-                Options = new ExpressionParser().Parse(current.Parameters[1]),
-                Template = _cache.Retrieve(current.Expression),
+                Data = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(0) ?? "$data"),
+                Options = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(1) ?? "$options"),
+                Template = _cache.Retrieve(current.Expression.Trim('"').Trim('\'')),
             };
         }
 

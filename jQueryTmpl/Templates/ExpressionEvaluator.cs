@@ -30,7 +30,7 @@ namespace jQueryTmpl.Templates
                 var memberInfo = FindMember(expression.Member, value);
 
                 if(memberInfo.Length == 0 && value is TemplateItem)
-                    memberInfo = FindMember(expression.Member, ((TemplateItem)value).Options);
+                    memberInfo = FindMember(expression.Member,  value = ((TemplateItem)value).Options);
 
                 if(memberInfo.Length == 0)
                     return EvaluateLiteral(expression);
@@ -68,10 +68,15 @@ namespace jQueryTmpl.Templates
                 var propertyInfo = memberInfo as PropertyInfo;
                 if(propertyInfo != null)
                 {
-                    if(expression.Arguments.Length > 0)
-                        continue;
-
                     var value = propertyInfo.GetValue(target, null);
+
+                    if(expression.Arguments.Length > 0 && value is Delegate)
+                    {
+                        var func = (Delegate)value;
+                        var paramValues = expression.Arguments.Select(EvaluateValue).ToArray();
+                        return func.DynamicInvoke(paramValues);
+                    }
+
                     if(expression.Indices.Length > 0)
                     {
                         if(value is Array)
