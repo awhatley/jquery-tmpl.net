@@ -12,14 +12,11 @@ namespace jQueryTmpl.Templates
         private static readonly Regex TokenPattern = new Regex(@"\{\{(?<slash>\/?)(?<tag>\w+|.)(?:\((?<parameters>(?:[^\}]|\}(?!\}))*?)?\))?(?:\s+(?<expression>.*?)?)?\s*\}\}");
 
         private readonly IDictionary<string, Func<Token, Queue<Token>, Template>> _builders;
-        private readonly IDictionary<string, Template> _cache;
         private string _template;
         private int _index;
 
-        public TemplateCompiler(IDictionary<string, Template> cache)
+        public TemplateCompiler()
         {
-            _cache = cache;
-        
             _builders = new Dictionary<string, Func<Token, Queue<Token>, Template>> {
                 { "=", BuildEval },
                 { "if", BuildIf },
@@ -88,7 +85,7 @@ namespace jQueryTmpl.Templates
             return new NestedTemplate {
                 Data = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(0) ?? "$data"),
                 Options = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(1) ?? "$options"),
-                Template = _cache[current.Expression.Trim('"').Trim('\'')],
+                Template = new TemplateReference(current.Expression.Trim('"').Trim('\'')),
             };
         }
 
@@ -139,8 +136,23 @@ namespace jQueryTmpl.Templates
                 Data = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(0)),
                 Options = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(1)),
                 Content = Compile(remaining),
-                Template = _cache[current.Expression.Trim('"').Trim('\'')],
+                Template = new TemplateReference(current.Expression.Trim('"').Trim('\'')),
             };
+        }
+    }
+
+    public class TemplateReference
+    {
+        private readonly string _templateName;
+
+        public TemplateReference(string templateName)
+        {
+            _templateName = templateName;
+        }
+
+        public Template Resolve()
+        {
+            return TemplateEngine.Lookup(_templateName);
         }
     }
 

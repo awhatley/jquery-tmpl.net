@@ -306,9 +306,8 @@ namespace jQueryTmpl.Test
             const string titleTemplate = @"<tr class=""title""><td>${Name}</td></tr>";
             const string expected = @"<tr class=""title""><td>Meet Joe Black</td></tr><tr class=""detail""><td>Director: Martin Brest</td></tr><tr class=""title""><td>The Mighty</td></tr><tr class=""detail""><td>Director: Peter Chelsom</td></tr><tr class=""title""><td>City Hunter</td></tr><tr class=""detail""><td>Director: Wong Jing</td></tr>";
 
-            var engine = new TemplateEngine();
-            engine.Store("#titleTemplate", titleTemplate);
-            engine.Store("#movieTemplate", movieTemplate);
+            TemplateEngine.Store("#titleTemplate", titleTemplate);
+            TemplateEngine.Store("#movieTemplate", movieTemplate);
 
             var movies = new[] {
                 new { Name = "Meet Joe Black", Director = "Martin Brest" },
@@ -316,7 +315,7 @@ namespace jQueryTmpl.Test
                 new { Name = "City Hunter", Director = "Wong Jing" },
             };
             
-            var result = engine.Render("#movieTemplate", movies);
+            var result = TemplateEngine.Render("#movieTemplate", movies);
 
             Assert.That(result, Is.EqualTo(expected));
             Console.WriteLine(result);
@@ -324,8 +323,7 @@ namespace jQueryTmpl.Test
 
         private void TestRender(string template, string expected, object data, object options = null)
         {
-            var engine = new TemplateEngine();
-            var result = engine.Render(template, data, options);
+            var result = TemplateEngine.Render(template, data, options);
 
             Assert.That(result, Is.EqualTo(expected));
             Console.WriteLine(result);
