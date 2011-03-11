@@ -37,9 +37,8 @@ Note that expression/function evaluation is not supported.
 
 * **`{{each property}}...{{/each}}`**: Renders an instance of the tag 
 contents for each item in the property value on the provided data object. 
-Currently, the property must be an array of objects and does not support 
-custom index or value variables. Properties of the objects in the array 
-can be evaluated within the block using any of the tags, however.
+The property must be an array of objects, and custom index or value
+variables are supported via the `{{each(index,value) data}}` syntax.
 
 * **`{{if property}}...{{/if}`**: Renders the content of the tag if the 
 property value on the provided data object evaluates to `true`. This is
@@ -51,13 +50,15 @@ conditions. The property value is optional.
 * **`{{html property}}`**: Renders the value of the property without HTML
 encoding. Otherwise identical to `${}`.
 
+* **`{{tmpl "#templateName"}}`**: Used for template composition. A named
+template is evaluated with the current data item within the parent template.
+The named template must first be registered with the `TemplateEngine`
+class before it can be used.
+
 
 Roadmap
 -------
 
-* Support nested template rendering using `{{tmpl}}` and exposing a method
-on the `TemplateEngine` class to register named templates before rendering.
-
-* Support custom index/value variables on the `{{each}}` tag.
+* {{wrap}} implementation.
 
 * Whatever [garann](http://github.com/garann) asks me for
