@@ -53,6 +53,12 @@ namespace jQueryTmpl.Templates
                 if((expression.Member.StartsWith("\"") && expression.Member.EndsWith("\"")) || 
                    (expression.Member.StartsWith("'") && expression.Member.EndsWith("'")))
                     return expression.Member.Trim('"', '\'');
+                
+                if(_item.ValueParameter != null && _item.ValueParameter.Matches(expression.Member))
+                    return _item.Value;
+
+                if(_item.IndexParameter != null && _item.IndexParameter.Matches(expression.Member))
+                    return _item.Index;
             }
 
             return null;

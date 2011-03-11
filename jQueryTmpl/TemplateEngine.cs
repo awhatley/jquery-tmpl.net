@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using jQueryTmpl.Templates;
 
@@ -6,11 +7,11 @@ namespace jQueryTmpl
 {
     public class TemplateEngine
     {
-        private static readonly TemplateCache _cache = new TemplateCache();
+        private readonly IDictionary<string, Template> _cache = new Dictionary<string, Template>();
 
         public void Store(string name, string template)
         {
-            _cache.Store(name ?? template, Compile(template));
+            _cache[name ?? template] = Compile(template);
         }
         
         public string Render(string template, object data = null, object options = null)
@@ -18,8 +19,10 @@ namespace jQueryTmpl
             if(template == null)
                 return String.Empty;
 
-            var tmpl = _cache.Retrieve(template, () => Compile(template));
-
+            var tmpl = _cache.ContainsKey(template) 
+                ? _cache[template] 
+                : _cache[template] = Compile(template);
+            
             if(tmpl == null)
                 return String.Empty;
 
@@ -29,7 +32,7 @@ namespace jQueryTmpl
             });
         }
 
-        private static Template Compile(string template)
+        private Template Compile(string template)
         {
             return new TemplateCompiler(_cache).Compile(template);
         }

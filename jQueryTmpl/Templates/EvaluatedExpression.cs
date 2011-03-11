@@ -42,7 +42,7 @@ namespace jQueryTmpl.Templates
             return Convert.ToString(_value);
         }
 
-        public IEnumerable<TemplateItem> ToTemplateItemCollection(Parameter indexName, Parameter valueName)
+        public IEnumerable<TemplateItem> ToTemplateItemCollection(Parameter indexParameter, Parameter valueParameter)
         {
             var index = 0;
             var enumerable = _value as IEnumerable;
@@ -54,7 +54,9 @@ namespace jQueryTmpl.Templates
                     Options = _item.Options, 
                     Parent = _item, 
                     Index = index, 
-                    Value = _value 
+                    IndexParameter = indexParameter,
+                    Value = _value,
+                    ValueParameter = valueParameter,
                 };
 
             else foreach(var item in enumerable)
@@ -64,7 +66,9 @@ namespace jQueryTmpl.Templates
                     Options = _item.Options, 
                     Parent = _item,
                     Index = index++,
+                    IndexParameter = indexParameter,
                     Value = item,
+                    ValueParameter = valueParameter,
                 };
         }
     }

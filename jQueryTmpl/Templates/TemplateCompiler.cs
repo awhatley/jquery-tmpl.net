@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using jQueryTmpl.Templates;
-
-namespace jQueryTmpl
+namespace jQueryTmpl.Templates
 {
     public class TemplateCompiler
     {
@@ -14,11 +12,11 @@ namespace jQueryTmpl
         private static readonly Regex TokenPattern = new Regex(@"\{\{(?<slash>\/?)(?<tag>\w+|.)(?:\((?<parameters>(?:[^\}]|\}(?!\}))*?)?\))?(?:\s+(?<expression>.*?)?)?\s*\}\}");
 
         private readonly IDictionary<string, Func<Token, Queue<Token>, Template>> _builders;
-        private readonly TemplateCache _cache;
+        private readonly IDictionary<string, Template> _cache;
         private string _template;
         private int _index;
 
-        public TemplateCompiler(TemplateCache cache)
+        public TemplateCompiler(IDictionary<string, Template> cache)
         {
             _cache = cache;
         
@@ -90,7 +88,7 @@ namespace jQueryTmpl
             return new NestedTemplate {
                 Data = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(0) ?? "$data"),
                 Options = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(1) ?? "$options"),
-                Template = _cache.Retrieve(current.Expression.Trim('"').Trim('\'')),
+                Template = _cache[current.Expression.Trim('"').Trim('\'')],
             };
         }
 
@@ -141,7 +139,7 @@ namespace jQueryTmpl
                 Data = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(0)),
                 Options = new ExpressionParser().Parse(current.Parameters.ElementAtOrDefault(1)),
                 Content = Compile(remaining),
-                Template = _cache.Retrieve(current.Expression),
+                Template = _cache[current.Expression.Trim('"').Trim('\'')],
             };
         }
     }

@@ -223,6 +223,23 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
+        public void EachStatementWithParameters()
+        {
+            const string template = @"<ul>{{each(i,v) people}}<li>${v}</li>{{/each}}</ul>";
+            const string expectedNone = @"<ul></ul>";
+            const string expectedOne = @"<ul><li>John Doe</li></ul>";
+            const string expectedThree = @"<ul><li>John Doe</li><li>Jane Smith</li><li>Jim Jones</li></ul>";
+
+            var none = new { people = new string[0] };
+            var one = new { people = new[] { "John Doe" } };
+            var three = new { people = new[] { "John Doe", "Jane Smith", "Jim Jones" } };
+        
+            TestRender(template, expectedNone, none);
+            TestRender(template, expectedOne, one);
+            TestRender(template, expectedThree, three);
+        }
+
+        [Test]
         public void HtmlTag()
         {
             const string template = @"<li>{{html firstName}} {{html lastName}}</li>";

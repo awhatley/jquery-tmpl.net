@@ -10,5 +10,10 @@ namespace jQueryTmpl.Templates
         {
             _name = name;
         }
+
+        public bool Matches(string name)
+        {
+            return _name == name;
+        }
     }
 }
