@@ -8,7 +8,7 @@ Version History
 ---------------
 
 * v0.2: Arbitrary function evaluation, nested templates with {{tmpl}}, 
-        and custom tag parameters for {{each}}
+and custom tag parameters for {{each}}
 
 * v0.1: Basic functionality in place
 
