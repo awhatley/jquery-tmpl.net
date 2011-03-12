@@ -3,9 +3,15 @@ jQuery-tmpl.NET
 
 A simple .NET library for rendering jQuery templates server-side.
 
-**NOTE: This branch is a highly experimental one where I'm playing with
-implementing nested templates and evaluating arbitrary functions on the
-server side. API is volatile and the code is pretty messy, fair warning.**
+
+Version History
+---------------
+
+* v0.2: Arbitrary function evaluation, nested templates with {{tmpl}}, 
+        and custom tag parameters for {{each}}
+
+* v0.1: Basic functionality in place
+
 
 Usage
 -----
@@ -58,6 +64,10 @@ class before it can be used.
 
 Roadmap
 -------
+
+* Better APIs for nested template evaluation.
+
+* Pluggable template cache.
 
 * {{wrap}} implementation.
 
