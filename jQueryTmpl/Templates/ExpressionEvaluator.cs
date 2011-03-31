@@ -46,8 +46,8 @@ namespace jQueryTmpl.Templates
         {
             if(expression.Arguments.Length == 0 && expression.Indices.Length == 0 && expression.Next == null && expression.Dollar == false)
             {
-                long number;
-                if(Int64.TryParse(expression.Member, out number))
+                int number;
+                if(Int32.TryParse(expression.Member, out number))
                     return number;
 
                 if((expression.Member.StartsWith("\"") && expression.Member.EndsWith("\"")) || 
@@ -87,7 +87,7 @@ namespace jQueryTmpl.Templates
                     {
                         if(value is Array)
                         {
-                            var subIndices = expression.Indices.Select(EvaluateValue).Cast<long>().ToArray();
+                            var subIndices = expression.Indices.Select(EvaluateValue).Cast<int>().ToArray();
                             value = ((Array)value).GetValue(subIndices);
                         }
 
