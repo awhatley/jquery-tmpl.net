@@ -154,6 +154,15 @@ namespace jQueryTmpl.Test
         }
 
         [Test]
+        public void IfStatementWithElsePrecededByLiteral()
+        {
+            const string template = @"{{if data}}${data} data, ${someOtherData} some other data{{else}}No data{{/if}}";
+            const string expected = "123 data, 456 some other data";
+
+            TestRender(template, expected, new { data = 123, someOtherData = 456 });
+        }
+
+        [Test]
         public void NestedIfElseStatement()
         {
             const string template = @"leaderboard light{{if IsCurrentUser}} ${token}{{if IsAnotherUser}} ${token2}{{/if}}{{else}} nothing{{/if}}";

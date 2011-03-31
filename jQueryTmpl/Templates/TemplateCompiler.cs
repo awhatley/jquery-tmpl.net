@@ -77,6 +77,9 @@ namespace jQueryTmpl.Templates
             if(tokens.Count == 0 && _index < _template.Length)
                 templates.Add(new LiteralTemplate { Value = _template.Substring(_index) });
 
+            if(tokens.Count > 0 && _index < tokens.Peek().Index)
+                templates.Add(new LiteralTemplate { Value = _template.Substring(_index, tokens.Peek().Index - _index) });
+
             return new CompositeTemplate(templates);
         }
 
