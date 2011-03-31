@@ -330,6 +330,105 @@ namespace jQueryTmpl.Test
             Console.WriteLine(result);
         }
 
+        [Test]
+        public void EqualityEvaluation_False()
+        {
+            const string template = @"{{if (data == 123)}}Shouldn't show{{/if}}";
+            const string expected = "";
+
+            TestRender(template, expected, new { data = 0 });
+        }
+
+        [Test]
+        public void EqualityEvaluation_True()
+        {
+            const string template = @"{{if (data == 0)}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            TestRender(template, expected, new { data = 0 });
+        }
+
+        [Test]
+        public void EqualityEvaluation_String_False()
+        {
+            const string template = @"{{if (data == ""abcd"")}}Shouldn't show{{/if}}";
+            const string expected = "";
+
+            TestRender(template, expected, new { data = "abc" });
+        }
+
+        [Test]
+        public void EqualityEvaluation_String_True()
+        {
+            const string template = @"{{if (data == ""abc"")}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            TestRender(template, expected, new { data = "abc" });
+        }
+
+        [Test]
+        public void EqualityEvaluation_Object_False()
+        {
+            const string template = @"{{if (data1 == data2)}}Shouldn't show{{/if}}";
+            const string expected = "";
+
+            TestRender(template, expected, new { data1 = DateTime.Now, data2 = DateTime.MaxValue });
+        }
+
+        [Test]
+        public void EqualityEvaluation_Complex_True()
+        {
+            const string template = @"{{if true == (data.property.values[0] == expected.value.ToString())}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            TestRender(template, expected, new { 
+                @true = true, 
+                data = new { property = new { values = new[] { "1", "2", "3" } } },
+                expected = new { value = 1 }
+            });
+        }
+
+        [Test]
+        public void EqualityEvaluation_Complex_False()
+        {
+            const string template = @"{{if true == (data.property.values[0] == expected.value.ToString())}}Shouldn't show{{/if}}";
+            const string expected = "";
+
+            TestRender(template, expected, new { 
+                @true = true, 
+                data = new { property = new { values = new[] { "1", "2", "3" } } },
+                expected = new { value = 2 }
+            });
+        }
+
+        [Test]
+        public void EqualityEvaluation_Object_True()
+        {
+            const string template = @"{{if (data1 == data2)}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            var value = DateTime.Now;
+            TestRender(template, expected, new { data1 = value, data2 = value });
+        }
+
+        [Test]
+        public void InequalityEvaluation_False()
+        {
+            const string template = @"{{if (data != 123)}}Shouldn't show{{/if}}";
+            const string expected = "";
+
+            TestRender(template, expected, new { data = 123 });
+        }
+
+        [Test]
+        public void InequalityEvaluation_True()
+        {
+            const string template = @"{{if (data != 123)}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            TestRender(template, expected, new { data = 0 });
+        }
+
         private void TestRender(string template, string expected, object data, object options = null)
         {
             var result = TemplateEngine.Render(template, data, options);
