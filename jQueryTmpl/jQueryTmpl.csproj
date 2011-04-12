@@ -34,6 +34,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -42,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\BinaryEvaluator.cs" />
     <Compile Include="Templates\CompositeTemplate.cs" />
     <Compile Include="Templates\RootTemplate.cs" />
     <Compile Include="Templates\TemplateCompiler.cs" />

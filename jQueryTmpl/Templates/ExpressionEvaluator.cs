@@ -38,7 +38,7 @@ namespace jQueryTmpl.Templates
                 value = InvokeBestMatch(memberInfo, expression, value);
 
                 if(expression.Operator.Length > 0)
-                    return EvaluateBinary(value, EvaluateValue(expression.Next), expression.Operator);
+                    return new BinaryEvaluator().Evaluate(value, EvaluateValue(expression.Next), expression.Operator);
 
                 expression = expression.Next;
             }
@@ -63,20 +63,6 @@ namespace jQueryTmpl.Templates
 
                 if(_item.IndexParameter != null && _item.IndexParameter.Matches(expression.Member))
                     return _item.Index;
-            }
-
-            return null;
-        }
-
-        private static object EvaluateBinary(object a, object b, string operation)
-        {
-            switch(operation.Trim())
-            {
-                case "==":
-                    return Equals(a, b);
-
-                case "!=":
-                    return !Equals(a, b);
             }
 
             return null;

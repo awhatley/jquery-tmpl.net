@@ -443,6 +443,78 @@ namespace jQueryTmpl.Test
             TestRender(template, expected, new { data = 0 });
         }
 
+        [Test]
+        public void GreaterThanEvaluation_True()
+        {
+            const string template = @"{{if (data > 123)}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            TestRender(template, expected, new { data = 124 });
+        }
+
+        [Test]
+        public void GreaterThanEvaluation_False()
+        {
+            const string template = @"{{if (data > 123)}}Shouldn't show{{/if}}";
+            const string expected = "";
+
+            TestRender(template, expected, new { data = 123 });
+        }
+
+        [Test]
+        public void GreaterThanOrEqualEvaluation_True()
+        {
+            const string template = @"{{if (data >= 123)}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            TestRender(template, expected, new { data = 123 });
+        }
+
+        [Test]
+        public void GreaterThanOrEqualEvaluation_False()
+        {
+            const string template = @"{{if (data >= 123)}}Shouldn't show{{/if}}";
+            const string expected = "";
+
+            TestRender(template, expected, new { data = 122 });
+        }
+
+        [Test]
+        public void LessThanEvaluation_True()
+        {
+            const string template = @"{{if (data < 123)}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            TestRender(template, expected, new { data = 0 });
+        }
+
+        [Test]
+        public void LessThanEvaluation_False()
+        {
+            const string template = @"{{if (data < 123)}}Shouldn't show{{/if}}";
+            const string expected = "";
+
+            TestRender(template, expected, new { data = 123 });
+        }
+
+        [Test]
+        public void LessThanOrEqualEvaluation_True()
+        {
+            const string template = @"{{if (data <= 123)}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            TestRender(template, expected, new { data = 123 });
+        }
+
+        [Test]
+        public void LessThanOrEqualEvaluation_False()
+        {
+            const string template = @"{{if (data <= 123)}}Shouldn't show{{/if}}";
+            const string expected = "";
+
+            TestRender(template, expected, new { data = 124 });
+        }
+
         private void TestRender(string template, string expected, object data, object options = null)
         {
             var result = TemplateEngine.Render(template, data, options);
