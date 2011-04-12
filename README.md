@@ -7,6 +7,8 @@ A simple .NET library for rendering jQuery templates server-side.
 Version History
 ---------------
 
+* v0.4: Support for >, >=, <, <= operators in expressions, bugfix in each parsing.
+
 * v0.3: Support == and != operators in expressions, bugfix in if/else parsing.
 
 * v0.2: Arbitrary function evaluation, nested templates with {{tmpl}}, 
@@ -87,8 +89,8 @@ as `expression`. Currently, the following rules apply to expression evaluation:
 * If no matching property or field is found, the value is interpreted as a literal
   string or number value.
 
-* Equality and inequality operators are supported, e.g. `x == 123`, `x == "123"`, 
-  or even `x.property.method(y == z.value)`.
+* Equality and comparison operators are supported, e.g. `x > 123`, `x == "123"`, 
+  or even `x.property.method(y <= z.value)`.
 
 
 Roadmap
