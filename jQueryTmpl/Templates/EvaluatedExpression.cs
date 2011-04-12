@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Web;
 
 namespace jQueryTmpl.Templates
 {
@@ -27,49 +24,19 @@ namespace jQueryTmpl.Templates
             }
         }
 
+        public TemplateItem Item
+        {
+            get { return _item; }
+        }
+
         public object Value
         {
             get { return _value; }
         }
 
-        public string ToHtmlEncodedString()
-        {
-            return HttpUtility.HtmlEncode(_value);
-        }
-
         public override string ToString()
         {
             return Convert.ToString(_value);
-        }
-
-        public IEnumerable<TemplateItem> ToTemplateItemCollection(Parameter indexParameter, Parameter valueParameter)
-        {
-            var index = 0;
-            var enumerable = _value as IEnumerable;
-            
-            if(enumerable == null)
-                yield return new TemplateItem { 
-                    Data = _item.Data, 
-                    Html = _item.Html, 
-                    Options = _item.Options, 
-                    Parent = _item, 
-                    Index = index, 
-                    IndexParameter = indexParameter,
-                    Value = _value,
-                    ValueParameter = valueParameter,
-                };
-
-            else foreach(var item in enumerable)
-                yield return new TemplateItem {
-                    Data = item, 
-                    Html = _item.Html, 
-                    Options = _item.Options, 
-                    Parent = _item,
-                    Index = index++,
-                    IndexParameter = indexParameter,
-                    Value = item,
-                    ValueParameter = valueParameter,
-                };
         }
     }
 }

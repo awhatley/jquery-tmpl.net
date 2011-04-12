@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace jQueryTmpl.Templates
@@ -48,9 +47,8 @@ namespace jQueryTmpl.Templates
                 })
                 .OrderBy(t => t.Index);
 
-            return new EachTemplate {
+            return new RootTemplate {
                 Content = Compile(new Queue<Token>(tokens)),
-                Expression = new ExpressionParser().Parse("$data"),
             };
         }
 
@@ -142,48 +140,5 @@ namespace jQueryTmpl.Templates
                 Template = new TemplateReference(current.Expression.Trim('"').Trim('\'')),
             };
         }
-    }
-
-    public class TemplateReference
-    {
-        private readonly string _templateName;
-
-        public TemplateReference(string templateName)
-        {
-            _templateName = templateName;
-        }
-
-        public Template Resolve()
-        {
-            return TemplateEngine.Lookup(_templateName);
-        }
-    }
-
-    public class CompositeTemplate : Template
-    {
-        private readonly IEnumerable<Template> _children;
-
-        public CompositeTemplate(IEnumerable<Template> children)
-        {
-            _children = children;
-        }
-
-        public override string Render(TemplateItem item)
-        {
-            return _children
-                .Aggregate(new StringBuilder(), (sb, t) => sb.Append(t.Render(item)))
-                .ToString();
-        }
-    }
-
-    public class Token
-    {
-        public int Index { get; set; }
-        public int Length { get; set; }
-        public string Value { get; set; }
-        public bool Closing { get; set; }
-        public string Name { get; set; }
-        public string[] Parameters { get; set; }
-        public string Expression { get; set; }
     }
 }

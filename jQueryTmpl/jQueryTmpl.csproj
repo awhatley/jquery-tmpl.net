@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\CompositeTemplate.cs" />
+    <Compile Include="Templates\RootTemplate.cs" />
     <Compile Include="Templates\TemplateCompiler.cs" />
     <Compile Include="TemplateEngine.cs" />
     <Compile Include="Templates\EachTemplate.cs" />
@@ -58,6 +60,8 @@
     <Compile Include="Templates\Parameter.cs" />
     <Compile Include="Templates\Template.cs" />
     <Compile Include="Templates\TemplateItem.cs" />
+    <Compile Include="Templates\TemplateReference.cs" />
+    <Compile Include="Templates\Token.cs" />
     <Compile Include="Templates\WrapTemplate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

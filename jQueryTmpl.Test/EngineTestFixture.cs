@@ -213,7 +213,7 @@ namespace jQueryTmpl.Test
         [Test]
         public void EachStatement()
         {
-            const string template = @"<ul>{{each people}}<li>${firstName} ${lastName}</li>{{/each}}</ul>";
+            const string template = @"<ul>{{each people}}<li>${$value.firstName} ${$value.lastName}</li>{{/each}}</ul>";
             const string expectedNone = @"<ul></ul>";
             const string expectedOne = @"<ul><li>John Doe</li></ul>";
             const string expectedThree = @"<ul><li>John Doe</li><li>Jane Smith</li><li>Jim Jones</li></ul>";
@@ -246,6 +246,20 @@ namespace jQueryTmpl.Test
             TestRender(template, expectedNone, none);
             TestRender(template, expectedOne, one);
             TestRender(template, expectedThree, three);
+        }
+
+        [Test]
+        public void EachStatementWithParentObjectValues()
+        {
+            const string template = @"<ul>{{each(i,v) people}}<li>${v} ${someValue}</li>{{/each}}</ul>";
+            const string expected = @"<ul><li>John Doe 1</li><li>Jane Smith 1</li><li>Jim Jones 1</li></ul>";
+
+            var data = new {
+                someValue = 1,
+                people = new[] { "John Doe", "Jane Smith", "Jim Jones" },
+            };
+
+            TestRender(template, expected, data);
         }
 
         [Test]

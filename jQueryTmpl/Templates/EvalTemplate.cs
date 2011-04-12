@@ -1,4 +1,6 @@
-﻿namespace jQueryTmpl.Templates
+﻿using System.Web;
+
+namespace jQueryTmpl.Templates
 {
     public class EvalTemplate : Template
     {
@@ -6,7 +8,7 @@
 
         public override string Render(TemplateItem item)
         {
-            return new ExpressionEvaluator(item).Evaluate(Expression).ToHtmlEncodedString();
+            return HttpUtility.HtmlEncode(new ExpressionEvaluator(item).Evaluate(Expression));
         }
     }
 }

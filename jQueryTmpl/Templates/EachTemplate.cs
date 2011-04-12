@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace jQueryTmpl.Templates
@@ -12,12 +14,29 @@ namespace jQueryTmpl.Templates
 
         public override string Render(TemplateItem item)
         {
-            var ss = new ExpressionEvaluator(item).Evaluate(Expression)
-                .ToTemplateItemCollection(IndexParameter, ValueParameter)
+            var evaluation = new ExpressionEvaluator(item).Evaluate(Expression);
+            return EachValueOf(evaluation)
                 .Aggregate(new StringBuilder(), (s, t) => s.Append(Content.Render(t)))
                 .ToString();
+        }
 
-            return ss;
+        private IEnumerable<TemplateItem> EachValueOf(EvaluatedExpression expression)
+        {
+            var index = 0;
+            var enumerable = expression.Value as IEnumerable ?? new[] { expression.Value };
+
+            return enumerable
+                .Cast<object>()
+                .Select(item => new TemplateItem {
+                    Data = expression.Item.Data,
+                    Html = expression.Item.Html,
+                    Options = expression.Item.Options,
+                    Parent = expression.Item,
+                    Index = index++,
+                    IndexParameter = IndexParameter,
+                    Value = item,
+                    ValueParameter = ValueParameter,
+                });
         }
     }
 }
