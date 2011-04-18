@@ -32,10 +32,17 @@ namespace jQueryTmpl.Templates
                 if(memberInfo.Length == 0 && value is TemplateItem)
                     memberInfo = FindMember(expression.Member,  value = ((TemplateItem)value).Options);
 
-                if(memberInfo.Length == 0)
-                    return EvaluateLiteral(expression);
+                if(memberInfo.Length > 0)
+                    value = InvokeBestMatch(memberInfo, expression, value);
 
-                value = InvokeBestMatch(memberInfo, expression, value);
+                else if(_item.ValueParameter != null && _item.ValueParameter.Matches(expression.Member))
+                    value = _item.Value;
+
+                else if(_item.IndexParameter != null && _item.IndexParameter.Matches(expression.Member))
+                    value = _item.Index;
+
+                else
+                    value = EvaluateLiteral(expression);
 
                 if(expression.Operator.Length > 0)
                     return new BinaryEvaluator().Evaluate(value, EvaluateValue(expression.Next), expression.Operator);
@@ -48,7 +55,7 @@ namespace jQueryTmpl.Templates
 
         private object EvaluateLiteral(Expression expression)
         {
-            if(expression.Arguments.Length == 0 && expression.Indices.Length == 0 && expression.Next == null && expression.Dollar == false)
+            if(expression.Arguments.Length == 0 && expression.Indices.Length == 0 && expression.Dollar == false)
             {
                 int number;
                 if(Int32.TryParse(expression.Member, out number))
@@ -57,12 +64,6 @@ namespace jQueryTmpl.Templates
                 if((expression.Member.StartsWith("\"") && expression.Member.EndsWith("\"")) || 
                    (expression.Member.StartsWith("'") && expression.Member.EndsWith("'")))
                     return expression.Member.Trim('"', '\'');
-                
-                if(_item.ValueParameter != null && _item.ValueParameter.Matches(expression.Member))
-                    return _item.Value;
-
-                if(_item.IndexParameter != null && _item.IndexParameter.Matches(expression.Member))
-                    return _item.Index;
             }
 
             return null;

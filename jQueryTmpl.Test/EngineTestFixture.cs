@@ -234,10 +234,10 @@ namespace jQueryTmpl.Test
         [Test]
         public void EachStatementWithParameters()
         {
-            const string template = @"<ul>{{each(i,v) people}}<li>${v}</li>{{/each}}</ul>";
+            const string template = @"<ul>{{each(i,v) people}}<li>${i} ${v}</li>{{/each}}</ul>";
             const string expectedNone = @"<ul></ul>";
-            const string expectedOne = @"<ul><li>John Doe</li></ul>";
-            const string expectedThree = @"<ul><li>John Doe</li><li>Jane Smith</li><li>Jim Jones</li></ul>";
+            const string expectedOne = @"<ul><li>0 John Doe</li></ul>";
+            const string expectedThree = @"<ul><li>0 John Doe</li><li>1 Jane Smith</li><li>2 Jim Jones</li></ul>";
 
             var none = new { people = new string[0] };
             var one = new { people = new[] { "John Doe" } };
@@ -257,6 +257,24 @@ namespace jQueryTmpl.Test
             var data = new {
                 someValue = 1,
                 people = new[] { "John Doe", "Jane Smith", "Jim Jones" },
+            };
+
+            TestRender(template, expected, data);
+        }
+
+        [Test]
+        public void EachStatementWithChildObjectValues()
+        {
+            const string template = @"<ul>{{each(i,v) people}}<li>${v.firstName} ${v.lastName} ${someValue}</li>{{/each}}</ul>";
+            const string expected = @"<ul><li>John Doe 1</li><li>Jane Smith 1</li><li>Jim Jones 1</li></ul>";
+
+            var data = new {
+                someValue = 1,
+                people = new[] { 
+                    new { firstName = "John", lastName = "Doe" }, 
+                    new { firstName = "Jane", lastName = "Smith" }, 
+                    new { firstName = "Jim", lastName = "Jones" },
+                },
             };
 
             TestRender(template, expected, data);
@@ -423,6 +441,15 @@ namespace jQueryTmpl.Test
 
             var value = DateTime.Now;
             TestRender(template, expected, new { data1 = value, data2 = value });
+        }
+
+        [Test]
+        public void EqualityEvaluation_Constant_Left()
+        {
+            const string template = @"{{if (123 == data)}}Should show{{/if}}";
+            const string expected = "Should show";
+
+            TestRender(template, expected, new { data = 123 });
         }
 
         [Test]
