@@ -5,10 +5,10 @@ namespace jQueryTmpl.Mvc
 {
     public static class TemplatingExtensions
     {
-        public static string RenderTemplate(this HtmlHelper helper, string partialViewName, object model)
+        public static MvcHtmlString RenderTemplate(this HtmlHelper helper, string partialViewName, object model)
         {
             var partial = helper.Partial(partialViewName, model).ToHtmlString();
-            return TemplateEngine.Render(partial, model);
+            return MvcHtmlString.Create(TemplateEngine.Render(partial, model));
         }
     }
 }
