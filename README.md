@@ -7,6 +7,10 @@ A simple .NET library for rendering jQuery templates server-side.
 Version History
 ---------------
 
+* v0.5: Added MIT license, use MvcHtmlString, lower-case boolean strings
+
+* v0.4.1: Bugfix in expression evaluation
+
 * v0.4: Support for >, >=, <, <= operators in expressions, bugfix in each parsing.
 
 * v0.3: Support == and != operators in expressions, bugfix in if/else parsing.
