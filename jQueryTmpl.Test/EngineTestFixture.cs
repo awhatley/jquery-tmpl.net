@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using NUnit.Framework;
 
@@ -35,6 +36,17 @@ namespace jQueryTmpl.Test
             var data = new { firstName = "John" };
 
             TestRender(template, expected, data);
+        }
+
+        [Test]
+        public void RenderBooleanToJavascriptLiteral()
+        {
+            const string template = @"${boolean}";
+            const string expectedTrue = @"true";
+            const string expectedFalse = @"false";
+
+            TestRender(template, expectedTrue, new { boolean = true });
+            TestRender(template, expectedFalse, new { boolean = false });
         }
 
         [Test]
@@ -540,6 +552,40 @@ namespace jQueryTmpl.Test
             const string expected = "";
 
             TestRender(template, expected, new { data = 124 });
+        }
+
+        [Test]
+        public void DictionaryBinding_Test()
+        {
+            const string template = @"<ul>{{each people}}<li>${$value.key} ${$value.value}</li>{{/each}}</ul>";
+            const string expected = "";
+
+            var data = new {
+                people = new Dictionary<string, string> {
+                    { "First", "Last" },
+                    { "A", "B" },
+                    { "1", "2" }
+                }
+            };
+
+            TestRender(template, expected, data);
+        }
+
+        [Test]
+        public void Dictionary_ValuesBinding_Test()
+        {
+            const string template = @"<ul>{{each(i,myObj) people.values}}<li>${myObj}</li>{{/each}}</ul>";
+            const string expected = "";
+
+            var data = new {
+                people = new Dictionary<string, string> {
+                    { "First", "Last" },
+                    { "A", "B" },
+                    { "1", "2" }
+                }
+            };
+
+            TestRender(template, expected, data);
         }
 
         private void TestRender(string template, string expected, object data, object options = null)

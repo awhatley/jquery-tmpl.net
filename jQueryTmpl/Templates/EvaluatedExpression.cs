@@ -36,6 +36,9 @@ namespace jQueryTmpl.Templates
 
         public override string ToString()
         {
+            if(_value is bool)
+                return ((bool)_value) ? "true" : "false";
+            
             return Convert.ToString(_value);
         }
     }
