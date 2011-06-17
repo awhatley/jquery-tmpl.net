@@ -558,7 +558,7 @@ namespace jQueryTmpl.Test
         public void DictionaryBinding_Test()
         {
             const string template = @"<ul>{{each people}}<li>${$value.key} ${$value.value}</li>{{/each}}</ul>";
-            const string expected = "";
+            const string expected = @"<ul><li>First Last</li><li>A B</li><li>1 2</li></ul>";
 
             var data = new {
                 people = new Dictionary<string, string> {
@@ -575,7 +575,7 @@ namespace jQueryTmpl.Test
         public void Dictionary_ValuesBinding_Test()
         {
             const string template = @"<ul>{{each(i,myObj) people.values}}<li>${myObj}</li>{{/each}}</ul>";
-            const string expected = "";
+            const string expected = @"<ul><li>Last</li><li>B</li><li>2</li></ul>";
 
             var data = new {
                 people = new Dictionary<string, string> {
