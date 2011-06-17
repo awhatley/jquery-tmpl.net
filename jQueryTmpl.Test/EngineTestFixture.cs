@@ -151,12 +151,12 @@ namespace jQueryTmpl.Test
         [Test]
         public void IfStatementBooleanLiteralTrue()
         {
-            const string template = @"leaderboard light{{if IsCurrentUser == true}} ${token}{{/if}}";
+            const string template = @"leaderboard light{{if Person.IsCurrentUser == true}} ${Person.token}{{/if}}";
             const string expectedTrue = @"leaderboard light foo";
             const string expectedFalse = @"leaderboard light";
 
-            var trueData = new { IsCurrentUser = true, token = "foo" };
-            var falseData = new { IsCurrentUser = false, token = "foo" };
+            var trueData = new { Person = new { IsCurrentUser = true, token = "foo" } };
+            var falseData = new { Person = new { IsCurrentUser = false, token = "foo" } };
 
             TestRender(template, expectedTrue, trueData);
             TestRender(template, expectedFalse, falseData);
@@ -165,12 +165,12 @@ namespace jQueryTmpl.Test
         [Test]
         public void IfStatementBooleanLiteralFalse()
         {
-            const string template = @"leaderboard light{{if IsCurrentUser == false}} ${token}{{/if}}";
+            const string template = @"leaderboard light{{if Person.IsCurrentUser == false}} ${Person.token}{{/if}}";
             const string expectedTrue = @"leaderboard light";
             const string expectedFalse = @"leaderboard light foo";
 
-            var trueData = new { IsCurrentUser = true, token = "foo" };
-            var falseData = new { IsCurrentUser = false, token = "foo" };
+            var trueData = new { Person = new { IsCurrentUser = true, token = "foo" } };
+            var falseData = new { Person = new { IsCurrentUser = false, token = "foo" } };
 
             TestRender(template, expectedTrue, trueData);
             TestRender(template, expectedFalse, falseData);
@@ -185,6 +185,20 @@ namespace jQueryTmpl.Test
 
             var trueData = new { IsCurrentUser = true, token = "foo" };
             var falseData = new { IsCurrentUser = false, token = "foo" };
+
+            TestRender(template, expectedTrue, trueData);
+            TestRender(template, expectedFalse, falseData);
+        }
+
+        [Test]
+        public void IfStatementCompoundNotOperator()
+        {
+            const string template = @"leaderboard light{{if !Person.IsCurrentUser}} ${Person.token}{{/if}}";
+            const string expectedTrue = @"leaderboard light";
+            const string expectedFalse = @"leaderboard light foo";
+
+            var trueData = new { Person = new { IsCurrentUser = true, token = "foo" } };
+            var falseData = new { Person = new { IsCurrentUser = false, token = "foo" } };
 
             TestRender(template, expectedTrue, trueData);
             TestRender(template, expectedFalse, falseData);
