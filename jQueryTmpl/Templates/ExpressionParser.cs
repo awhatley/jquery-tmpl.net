@@ -5,7 +5,7 @@ namespace jQueryTmpl.Templates
 {
     public class ExpressionParser
     {
-        private static readonly Regex Pattern = new Regex(@"(?<dollar>\$)?(?<member>\w+)(?:\((?<args>[^)]+)\))?(?:\[(?<index>[^\]]+)\])?(?:\s*(?<operator>==|!=|>=?|<=?)?\s*)(?=\.)?|(?<member>[""'][^""']+[""'])");
+        private static readonly Regex Pattern = new Regex(@"(?<dollar>\$)?(?<member>\w+)(?:\((?<args>[^)]+)\))?(?:\[(?<index>[^\]]+)\])?(?:\s*(?<operator>==|!=|>=?|<=?)?\s*)(?=\.)?|(?<member>[""'][^""']+[""'])|(?<operator>!)");
 
         public Expression Parse(string expression)
         {

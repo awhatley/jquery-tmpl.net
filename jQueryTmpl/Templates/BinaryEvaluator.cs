@@ -23,6 +23,9 @@ namespace jQueryTmpl.Templates
 
                 case "<=":
                     return LessThanEqual(a, b);
+
+                case "!":
+                    return Negate(b);
             }
 
             return null;
@@ -46,6 +49,11 @@ namespace jQueryTmpl.Templates
         private object LessThanEqual(dynamic a, dynamic b)
         {
             return a <= b;
+        }
+
+        private object Negate(dynamic b)
+        {
+            return !b;
         }
     }
 }

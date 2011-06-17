@@ -61,6 +61,10 @@ namespace jQueryTmpl.Templates
                 if(Int32.TryParse(expression.Member, out number))
                     return number;
 
+                bool boolean;
+                if(Boolean.TryParse(expression.Member, out boolean))
+                    return boolean;
+
                 if((expression.Member.StartsWith("\"") && expression.Member.EndsWith("\"")) || 
                    (expression.Member.StartsWith("'") && expression.Member.EndsWith("'")))
                     return expression.Member.Trim('"', '\'');
