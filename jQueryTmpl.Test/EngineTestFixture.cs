@@ -644,6 +644,41 @@ namespace jQueryTmpl.Test
             TestRender(template, expected, data);
         }
 
+        [Test]
+        public void GlobalFunctionEvaluation()
+        {
+            const string template = @"<li>{{= func('abc')}}</li>";
+            const string expected = @"<li>abccba</li>";
+
+            var data = new { };
+            var options = new
+            {
+                func = (Func<string, string>)(x => x + x[2] + x[1] + x[0]),
+            };
+
+            TestRender(template, expected, data, options);
+        }
+
+        [Test]
+        public void EachStatementWithParentObjectValuesAndGlobalFunction()
+        {
+            const string template = @"<ul>{{each(i,v) people}}<li>${v} ${someValue} ${func('abc')}</li>{{/each}}</ul>";
+            const string expected = @"<ul><li>John Doe 1 abccba</li><li>Jane Smith 1 abccba</li><li>Jim Jones 1 abccba</li></ul>";
+
+            var options = new
+            {
+                func = (Func<string, string>)(x => x + x[2] + x[1] + x[0]),
+            };
+
+            var data = new
+            {
+                someValue = 1,
+                people = new[] { "John Doe", "Jane Smith", "Jim Jones" },
+            };
+
+            TestRender(template, expected, data, options);
+        }
+        
         private void TestRender(string template, string expected, object data, object options = null)
         {
             var result = TemplateEngine.Render(template, data, options);

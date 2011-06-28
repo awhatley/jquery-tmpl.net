@@ -29,8 +29,8 @@ namespace jQueryTmpl.Templates
 
                 var memberInfo = FindMember(expression.Member, value);
 
-                if(memberInfo.Length == 0 && value is TemplateItem)
-                    memberInfo = FindMember(expression.Member,  value = ((TemplateItem)value).Options);
+                if(memberInfo.Length == 0 && _item.Options != null)
+                    memberInfo = FindMember(expression.Member, value = _item.Options);
 
                 if(memberInfo.Length > 0)
                     value = InvokeBestMatch(memberInfo, expression, value);
